@@ -1,4 +1,3 @@
-from termios import VT1
 import justpy as jp
 import pandas
 from datetime import datetime
