@@ -16,7 +16,7 @@ chart_def = """ {
         type: 'pie'
     },
     title: {
-        text: 'Browser market shares in May, 2020'
+        text: 'Yearly course Rating'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
