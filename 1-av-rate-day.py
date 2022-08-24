@@ -1,10 +1,19 @@
 import justpy as jp
+import pandas
+from datetime import datetime
+from pytz import utc
+import matplotlib.pyplot as plt
 
-chart_def = """ 
+data = pandas.read_csv('reviews.csv', parse_dates=['Timestamp'])
+data['Day'] = data['Timestamp'].dt.date
+day_average = data.groupby(['Day']).mean()
+
+
+chart_def = """
 {
     chart: {
         type: 'spline',
-        inverted: true
+        inverted: false
     },
     title: {
         text: 'Atmosphere Temperature by Altitude'
@@ -66,8 +75,14 @@ def app():
     h1 = jp.QDiv(a=wp, text='Analysis of Course Reviews',
                  classes='text-h3 text-center q-pa-md')
     p1 = jp.QDiv(a=wp, text='These Graphs Represent course analysis')
+    hc = jp.HighCharts(a=wp, options=chart_def)
 
+    hc.options.xAxis.categories = list(day_average.index)
+    hc.options.series[0].data = list(day_average['Rating'])
+    print(day_average['Rating'])
     return wp
 
+
+print(day_average.index)
 
 jp.justpy(app)
